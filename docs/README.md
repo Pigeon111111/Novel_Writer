@@ -33,10 +33,10 @@
 
 ## 🔗 外部资源
 
-- [GitHub仓库](https://github.com/YILING0013/AI_NovelGenerator)
+- [GitHub仓库](https://github.com/Pigeon111111/Novel_Writer)
 - [更新日志](../CHANGELOG.md)
 - [贡献指南](../CONTRIBUTING.md)
-- [问题反馈](https://github.com/YILING0013/AI_NovelGenerator/issues)
+- [问题反馈](https://github.com/Pigeon111111/Novel_Writer/issues)
 
 ---
 
@@ -50,6 +50,6 @@
 
 ## 📞 获取帮助
 
-- 💬 [GitHub Discussions](https://github.com/YILING0013/AI_NovelGenerator/discussions)
-- 🐛 [问题反馈](https://github.com/YILING0013/AI_NovelGenerator/issues)
+- 💬 [GitHub Discussions](https://github.com/Pigeon111111/Novel_Writer/discussions)
+- 🐛 [问题反馈](https://github.com/Pigeon111111/Novel_Writer/issues)
 - 📧 [邮件联系](mailto:your-email@example.com)

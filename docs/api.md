@@ -415,5 +415,5 @@ API版本通过URL前缀控制：
 
 ## 更多信息
 
-- [GitHub仓库](https://github.com/YILING0013/AI_NovelGenerator)
-- [问题反馈](https://github.com/YILING0013/AI_NovelGenerator/issues)
+- [GitHub仓库](https://github.com/Pigeon111111/Novel_Writer)
+- [问题反馈](https://github.com/Pigeon111111/Novel_Writer/issues)

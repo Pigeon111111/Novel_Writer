@@ -114,3 +114,8 @@ python test_audit_system.py
 ## 贡献
 
 如果你想为新版本做贡献，请查看 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+- [GitHub仓库](https://github.com/Pigeon111111/Novel_Writer)
+- [更新日志](../CHANGELOG.md)
+- [贡献指南](../CONTRIBUTING.md)
+- [问题反馈](https://github.com/Pigeon111111/Novel_Writer/issues)

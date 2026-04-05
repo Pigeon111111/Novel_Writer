@@ -6,8 +6,8 @@
 
 [![License](https://img.shields.io/badge/license-AGPL%20v3-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-brightgreen.svg)](https://www.python.org/)
-[![GitHub Stars](https://img.shields.io/github/stars/YILING0013/AI_NovelGenerator.svg)](https://github.com/YILING0013/AI_NovelGenerator/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/YILING0013/AI_NovelGenerator.svg)](https://github.com/YILING0013/AI_NovelGenerator/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/Pigeon111111/Novel_Writer.svg)](https://github.com/Pigeon111111/Novel_Writer/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/Pigeon111111/Novel_Writer.svg)](https://github.com/Pigeon111111/Novel_Writer/issues)
 
 [English](README_EN.md) | 简体中文
 
@@ -45,8 +45,8 @@ AI Novel Generator 是一款基于大语言模型的多功能小说生成工具�
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YILING0013/AI_NovelGenerator.git
-cd AI_NovelGenerator
+git clone https://github.com/Pigeon111111/Novel_Writer.git
+cd Novel_Writer
 
 # 创建虚拟环境（推荐）
 python -m venv venv
@@ -289,9 +289,9 @@ mypy .
 
 ## 📞 联系方式
 
-- 项目主页: https://github.com/YILING0013/AI_NovelGenerator
-- 问题反馈: https://github.com/YILING0013/AI_NovelGenerator/issues
-- 讨论区: https://github.com/YILING0013/AI_NovelGenerator/discussions
+- 项目主页: https://github.com/Pigeon111111/Novel_Writer
+- 问题反馈: https://github.com/Pigeon111111/Novel_Writer/issues
+- 讨论区: https://github.com/Pigeon111111/Novel_Writer/discussions
 
 ---
 
@@ -305,6 +305,6 @@ mypy .
 
 **如果这个项目对你有帮助，请给一个 ⭐️ Star！**
 
-Made with ❤️ by YILING0013
+Made with ❤️ by Pigeon111111
 
 </div>

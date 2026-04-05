@@ -73,11 +73,11 @@
 
 ```bash
 # Fork 后克隆你的仓库
-git clone https://github.com/your-username/AI_NovelGenerator.git
-cd AI_NovelGenerator
+git clone https://github.com/your-username/Novel_Writer.git
+cd Novel_Writer
 
 # 添加上游仓库
-git remote add upstream https://github.com/YILING0013/AI_NovelGenerator.git
+git remote add upstream https://github.com/Pigeon111111/Novel_Writer.git
 ```
 
 ### 2. 创建分支
@@ -378,7 +378,7 @@ Fixes #123
 
 ## 获取帮助
 
-- 💬 [GitHub Discussions](https://github.com/YILING0013/AI_NovelGenerator/discussions) - 一般讨论
+- 💬 [GitHub Discussions](https://github.com/Pigeon111111/Novel_Writer/discussions)
 - 📧 [Email](mailto:your-email@example.com) - 私人问题
 - 📖 [文档](docs/) - 查阅文档
 

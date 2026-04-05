@@ -51,7 +51,7 @@ cd AI_NovelGenerator
 
 #### 方式二：下载压缩包
 
-1. 访问 [GitHub仓库](https://github.com/YILING0013/AI_NovelGenerator)
+1. 访问 [GitHub仓库](https://github.com/Pigeon111111/Novel_Writer)
 2. 点击 "Code" -> "Download ZIP"
 3. 解压到本地目录
 
@@ -326,6 +326,6 @@ pip install customtkinter --upgrade
 
 如果遇到安装问题：
 
-- 💬 [GitHub Discussions](https://github.com/YILING0013/AI_NovelGenerator/discussions)
-- 🐛 [提交Issue](https://github.com/YILING0013/AI_NovelGenerator/issues)
+- 💬 [GitHub Discussions](https://github.com/Pigeon111111/Novel_Writer/discussions)
+- 🐛 [提交Issue](https://github.com/Pigeon111111/Novel_Writer/issues)
 - 📖 [常见问题](faq.md)
