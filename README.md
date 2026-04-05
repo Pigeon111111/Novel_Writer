@@ -1,230 +1,310 @@
-# 📖 自动小说生成工具
-
->- 当前没有什么精力维护该项目，本身该项目并无任何收益，以及临近毕业，有很多内容要忙，如果后面有时间的话，再考虑基于更新的技术去重构吧。——2025/9/24
-
 <div align="center">
-  
-✨ **核心功能** ✨
 
-| 功能模块          | 关键能力                          |
-|-------------------|----------------------------------|
-| 🎨 小说设定工坊    | 世界观架构 / 角色设定 / 剧情蓝图   |
-| 📖 智能章节生成    | 多阶段生成保障剧情连贯性           |
-| 🧠 状态追踪系统    | 角色发展轨迹 / 伏笔管理系统         |
-| 🔍 语义检索引擎    | 基于向量的长程上下文一致性维护      |
-| 📚 知识库集成      | 支持本地文档参考         |
-| ✅ 自动审校机制    | 检测剧情矛盾与逻辑冲突          |
-| 🖥 可视化工作台    | 全流程GUI操作，配置/生成/审校一体化 |
+# AI Novel Generator
+
+**基于大语言模型的智能小说创作工具**
+
+[![License](https://img.shields.io/badge/license-AGPL%20v3-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.9%2B-brightgreen.svg)](https://www.python.org/)
+[![GitHub Stars](https://img.shields.io/github/stars/YILING0013/AI_NovelGenerator.svg)](https://github.com/YILING0013/AI_NovelGenerator/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/YILING0013/AI_NovelGenerator.svg)](https://github.com/YILING0013/AI_NovelGenerator/issues)
+
+[English](README_EN.md) | 简体中文
 
 </div>
 
-> 一款基于大语言模型的多功能小说生成器，助您高效创作逻辑严谨、设定统一的长篇故事
+---
+
+## 📖 项目简介
+
+AI Novel Generator 是一款基于大语言模型的多功能小说生成工具，旨在帮助作者高效创作逻辑严谨、设定统一的长篇故事。通过智能化的状态追踪、语义检索和自动审校机制，确保小说创作的一致性和连贯性。
+
+### ✨ 核心特性
+
+- 🎨 **小说设定工坊** - 世界观架构、角色设定、剧情蓝图一站式管理
+- 📖 **智能章节生成** - 多阶段生成流程，保障剧情连贯性
+- 🧠 **状态追踪系统** - 角色发展轨迹、伏笔管理、资源账本
+- 🔍 **语义检索引擎** - 基于向量的长程上下文一致性维护
+- ✅ **自动审校机制** - 33维度审计系统，检测剧情矛盾与逻辑冲突
+- 🤖 **AI痕迹消痕** - 自动检测和消除AI生成痕迹
+- 🚀 **自动化管线** - 端到端自动化生成，支持守护进程模式
+- 🌐 **Web界面** - FastAPI后端 + RESTful API + WebSocket实时推送
+- 🔗 **平台集成** - 支持番茄作家助手、炼字工坊等平台自动投稿
 
 ---
 
-## 📑 目录导航
-1. [环境准备](#-环境准备)  
-2. [项目架构](#-项目架构)  
-3. [配置指南](#⚙️-配置指南)  
-4. [运行说明](#🚀-运行说明)  
-5. [使用教程](#📘-使用教程)  
-6. [疑难解答](#❓-疑难解答)  
+## 🚀 快速开始
 
----
+### 环境要求
 
-## 🛠 环境准备
-确保满足以下运行条件：
-- **Python 3.9+** 运行环境（推荐3.10-3.12之间）
-- **pip** 包管理工具
-- 有效API密钥：
-  - 云端服务：OpenAI / DeepSeek 等
-  - 本地服务：Ollama 等兼容 OpenAI 的接口
+- Python 3.9+ (推荐 3.10-3.12)
+- pip 包管理工具
+- 有效的API密钥（OpenAI / DeepSeek / LongCat 等）
 
----
+### 安装步骤
 
+```bash
+# 克隆仓库
+git clone https://github.com/YILING0013/AI_NovelGenerator.git
+cd AI_NovelGenerator
 
-## 📥 安装说明
-1. **下载项目**  
-   - 通过 [GitHub](https://github.com) 下载项目 ZIP 文件，或使用以下命令克隆本项目：
-     ```bash
-     git clone https://github.com/YILING0013/AI_NovelGenerator
-     ```
+# 创建虚拟环境（推荐）
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# 或
+venv\Scripts\activate  # Windows
 
-2. **安装编译工具（可选）**  
-   - 如果对某些包无法正常安装，访问 [Visual Studio Build Tools](https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/) 下载并安装C++编译工具，用于构建部分模块包；
-   - 安装时，默认只包含 MSBuild 工具，需手动勾选左上角列表栏中的 **C++ 桌面开发** 选项。
-
-3. **安装依赖并运行**  
-   - 打开终端，进入项目源文件目录：
-     ```bash
-     cd AI_NovelGenerator
-     ```
-   - 安装项目依赖：
-     ```bash
-     pip install -r requirements.txt
-     ```
-   - 安装完成后，运行主程序：
-     ```bash
-     python main.py
-     ```
-
->如果缺失部分依赖，后续**手动执行**
->```bash
->pip install XXX
->```
->进行安装即可
-
-## 🗂 项目架构
-```
-novel-generator/
-├── main.py                      # 入口文件, 运行 GUI
-├── consistency_checker.py       # 一致性检查, 防止剧情冲突
-|—— chapter_directory_parser.py  # 目录解析
-|—— embedding_adapters.py        # Embedding 接口封装
-|—— llm_adapters.py              # LLM 接口封装
-├── prompt_definitions.py        # 定义 AI 提示词
-├── utils.py                     # 常用工具函数, 文件操作
-├── config_manager.py            # 管理配置 (API Key, Base URL)
-├── config.json                  # 用户配置文件 (可选)
-├── novel_generator/             # 章节生成核心逻辑
-├── ui/                          # 图形界面
-└── vectorstore/                 # (可选) 本地向量数据库存储
+# 安装依赖
+pip install -r requirements.txt
 ```
 
----
+### 配置
 
-## ⚙️ 配置指南
-### 📌 基础配置（config.json）
+1. 复制配置模板：
+```bash
+cp config.example.json config.json
+```
+
+2. 编辑 `config.json`，填入你的API密钥：
 ```json
 {
-    "api_key": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "base_url": "https://api.openai.com/v1",
-    "interface_format": "OpenAI",
-    "model_name": "gpt-4o-mini",
-    "temperature": 0.7,
-    "max_tokens": 4096,
-    "embedding_api_key": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "embedding_interface_format": "OpenAI",
-    "embedding_url": "https://api.openai.com/v1",
-    "embedding_model_name": "text-embedding-ada-002",
-    "embedding_retrieval_k": 4,
-    "topic": "星穹铁道主角星穿越到原神提瓦特大陆，拯救提瓦特大陆，并与其中的角色展开爱恨情仇的小说",
-    "genre": "玄幻",
-    "num_chapters": 120,
-    "word_number": 4000,
-    "filepath": "D:/AI_NovelGenerator/filepath"
+  "llm_configs": {
+    "LongCatChat": {
+      "api_key": "your_api_key_here",
+      "base_url": "https://api.longcat.chat/openai",
+      "model_name": "LongCat-Flash-Chat",
+      "temperature": 0.7,
+      "max_tokens": 65536
+    }
+  }
 }
 ```
 
-### 🔧 配置说明
-1. **生成模型配置**
-   - `api_key`: 大模型服务的API密钥
-   - `base_url`: API终端地址（本地服务填Ollama等地址）
-   - `interface_format`: 接口模式
-   - `model_name`: 主生成模型名称（如gpt-4, claude-3等）
-   - `temperature`: 创意度参数（0-1，越高越有创造性）
-   - `max_tokens`: 模型最大回复长度
+### 运行
 
-2. **Embedding模型配置**
-   - `embedding_model_name`: 模型名称（如Ollama的nomic-embed-text）
-   - `embedding_url`: 服务地址
-   - `embedding_retrieval_k`: 
-
-3. **小说参数配置**
-   - `topic`: 核心故事主题
-   - `genre`: 作品类型
-   - `num_chapters`: 总章节数
-   - `word_number`: 单章目标字数
-   - `filepath`: 生成文件存储路径
-
----
-
-## 🚀 运行说明
-### **方式 1：使用 Python 解释器**
+#### GUI模式
 ```bash
 python main.py
 ```
-执行后，GUI 将会启动，你可以在图形界面中进行各项操作。
 
-### **方式 2：打包为可执行文件**
-如果你想在无 Python 环境的机器上使用本工具，可以使用 **PyInstaller** 进行打包：
+#### Web模式
+```bash
+# 启动Web服务
+python web_backend/main.py
+
+# 访问 http://localhost:8000
+```
+
+#### 命令行模式
+```bash
+# 使用自动化管线
+python -c "from automation import AutomatedPipeline; ..."
+```
+
+---
+
+## 📚 文档
+
+- [安装指南](docs/installation.md)
+- [配置说明](docs/configuration.md)
+- [使用教程](docs/tutorial.md)
+- [API文档](docs/api.md)
+- [开发指南](docs/development.md)
+- [常见问题](docs/faq.md)
+
+---
+
+## ⚙️ 配置说明
+
+### 三层配置优先级
+
+本项目采用三层配置系统，优先级从高到低：
+
+1. **个人配置** (`config.json`) - 最高优先级
+2. **项目配置** (`config.default.json`) - 中等优先级
+3. **系统默认配置** - 最低优先级
+
+### 主要配置项
+
+```json
+{
+  "llm_configs": {
+    "LongCatChat": {...},
+    "gpt-4": {...}
+  },
+  "audit_config": {
+    "enabled": true,
+    "auto_fix": false,
+    "quality_threshold": 80.0
+  },
+  "ai_detection_config": {
+    "enabled": true,
+    "auto_remove_traces": true,
+    "detection_threshold": 0.3
+  },
+  "automation_config": {
+    "enabled": true,
+    "auto_mode": false,
+    "human_review_gate": true
+  }
+}
+```
+
+详细配置说明请参考 [配置文档](docs/configuration.md)。
+
+---
+
+## 🏗️ 项目架构
+
+```
+AI_NovelGenerator/
+├── config_manager.py          # 三层配置管理器
+├── state_manager/              # 状态管理模块
+│   ├── models.py              # Pydantic数据模型
+│   ├── manager.py             # 状态管理器
+│   └── migration.py           # 迁移工具
+├── model_router/               # 模型路由模块
+│   ├── router.py              # 模型路由器
+│   └── adaptive_selector.py   # 自适应选择器
+├── audit_system/               # 审计系统模块
+│   ├── dimensions.py          # 33维度定义
+│   ├── result.py              # 审计结果模型
+│   └── auditor.py             # 审计引擎
+├── ai_detection/               # AI检测模块
+│   ├── detector.py            # AI痕迹检测器
+│   └── remover.py             # AI痕迹消除器
+├── automation/                 # 自动化模块
+│   ├── pipeline.py            # 自动化管线
+│   └── daemon.py              # 守护进程
+├── web_backend/                # Web后端
+│   └── main.py                # FastAPI应用
+└── platform_integration/       # 平台集成
+    ├── adapter.py             # 平台适配器基类
+    ├── fanqie.py              # 番茄作家助手
+    ├── lianzi.py              # 炼字工坊
+    └── manager.py             # 平台管理器
+```
+
+---
+
+## 🎯 使用示例
+
+### 基础使用
+
+```python
+from config_manager import ConfigManager
+from automation import AutomatedPipeline
+
+# 初始化
+config = ConfigManager("config.json")
+pipeline = AutomatedPipeline(config)
+
+# 运行自动化生成
+await pipeline.run_full_pipeline(
+    start_chapter=1,
+    end_chapter=10,
+    auto_mode=False  # True为全自动模式
+)
+```
+
+### 平台投稿
+
+```python
+from platform_integration import PlatformManager
+
+# 初始化平台管理器
+manager = PlatformManager(config)
+
+# 注册番茄作家助手
+manager.register_platform("fanqie", {
+    "api_key": "your_key",
+    "author_id": "your_id"
+})
+
+# 发布章节
+results = await manager.publish_to_multiple(
+    novel_id="novel_001",
+    chapter_num=1,
+    title="第一章 开始",
+    content="章节内容...",
+    platforms=["fanqie", "lianzi"]
+)
+```
+
+---
+
+## 🤝 贡献指南
+
+我们欢迎所有形式的贡献！请查看 [贡献指南](CONTRIBUTING.md) 了解详情。
+
+### 如何贡献
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
+
+### 开发环境设置
 
 ```bash
-pip install pyinstaller
-pyinstaller main.spec
+# 安装开发依赖
+pip install -r requirements-dev.txt
+
+# 运行测试
+pytest tests/
+
+# 代码格式化
+black .
+isort .
+
+# 类型检查
+mypy .
 ```
-打包完成后，会在 `dist/` 目录下生成可执行文件（如 Windows 下的 `main.exe`）。
 
 ---
 
-## 📘 使用教程
-1. **启动后，先完成基本参数设置：**  
-   - **API Key & Base URL**（如 `https://api.openai.com/v1`）  
-   - **模型名称**（如 `gpt-3.5-turbo`、`gpt-4o` 等）  
-   - **Temperature** (0~1，决定文字创意程度)  
-   - **主题(Topic)**（如 “废土世界的 AI 叛乱”）  
-   - **类型(Genre)**（如 “科幻”/“魔幻”/“都市幻想”）  
-   - **章节数**、**每章字数**（如 10 章，每章约 3000 字）  
-   - **保存路径**（建议创建一个新的输出文件夹）
+## 📝 更新日志
 
-2. **点击「Step1. 生成设定」**  
-   - 系统将基于主题、类型、章节数等信息，生成：  
-     - `Novel_setting.txt`：包含世界观、角色信息、雷点暗线等。  
-   - 可以在生成后的 `Novel_setting.txt` 中查看或修改设定内容。
-
-3. **点击「Step2. 生成目录」**  
-   - 系统会根据已完成的 `Novel_setting.txt` 内容，为全部章节生成：  
-     - `Novel_directory.txt`：包括每章标题和简要提示。  
-   - 可以在生成后的文件中查看、修改或补充章节标题和描述。
-
-4. **点击「Step3. 生成章节草稿」**  
-   - 在生成章节之前，你可以：  
-     - **设置章节号**（如写第 1 章，就填 `1`）  
-     - **在“本章指导”输入框**中提供对本章剧情的任何期望或提示  
-   - 点击按钮后，系统将：  
-     - 自动读取前文设定、`Novel_directory.txt`、以及已定稿章节  
-     - 调用向量检索回顾剧情，保证上下文连贯  
-     - 生成本章大纲 (`outline_X.txt`) 及正文 (`chapter_X.txt`)  
-   - 生成完成后，你可在左侧的文本框查看、编辑本章草稿内容。
-
-5. **点击「Step4. 定稿当前章节」**  
-   - 系统将：  
-     - **更新全局摘要**（写入 `global_summary.txt`）  
-     - **更新角色状态**（写入 `character_state.txt`）  
-     - **更新向量检索库**（保证后续章节可以调用最新信息）  
-     - **更新剧情要点**（如 `plot_arcs.txt`）  
-   - 定稿完成后，你可以在 `chapter_X.txt` 中看到定稿后的文本。
-
-6. **一致性检查（可选）**  
-   - 点击「[可选] 一致性审校」按钮，对最新章节进行冲突检测，如角色逻辑、剧情前后矛盾等。  
-   - 若有冲突，会在日志区输出详细提示。
-
-7. **重复第 4-6 步** 直到所有章节生成并定稿！
-
-> **向量检索配置提示**  
-> 1. embedding模型需要显示指定接口和模型名称；
-> 2. 使用**本地Ollama**的**Embedding**时需提前启动Ollama服务：  
->    ```bash
->    ollama serve  # 启动服务
->    ollama pull nomic-embed-text  # 下载/启用模型
->    ```
-> 3. 切换不同Embedding模型后建议清空vectorstore目录
-> 4. 云端Embedding需确保对应API权限已开通
+查看 [CHANGELOG.md](CHANGELOG.md) 了解版本更新历史。
 
 ---
 
-## ❓ 疑难解答
-### Q1: Expecting value: line 1 column 1 (char 0)
+## 📄 许可证
 
-该问题大概率由于API未正确响应造成，也许响应了一个html？其它内容，导致出现该报错；
-
-
-### Q2: HTTP/1.1 504 Gateway Timeout？
-确认接口是否稳定；
-
-### Q3: 如何切换不同的Embedding提供商？
-在GUI界面中对应输入即可。
+本项目采用 GNU Affero General Public License v3.0 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
 ---
 
-如有更多问题或需求，欢迎在**项目 Issues** 中提出。
+## 🙏 致谢
+
+感谢以下开源项目的启发：
+
+- [LangChain](https://github.com/langchain-ai/langchain) - LLM应用框架
+- [ChromaDB](https://github.com/chroma-core/chroma) - 向量数据库
+- [FastAPI](https://github.com/tiangolo/fastapi) - Web框架
+- [Pydantic](https://github.com/pydantic/pydantic) - 数据验证
+
+---
+
+## 📞 联系方式
+
+- 项目主页: https://github.com/YILING0013/AI_NovelGenerator
+- 问题反馈: https://github.com/YILING0013/AI_NovelGenerator/issues
+- 讨论区: https://github.com/YILING0013/AI_NovelGenerator/discussions
+
+---
+
+## ⚠️ 免责声明
+
+本项目仅供学习和研究使用。使用本工具生成的内容应遵守相关平台的规定和法律法规。开发者不对使用本工具产生的任何后果负责。
+
+---
+
+<div align="center">
+
+**如果这个项目对你有帮助，请给一个 ⭐️ Star！**
+
+Made with ❤️ by YILING0013
+
+</div>

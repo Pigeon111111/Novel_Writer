@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI小说生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .progress {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+        
+        .log-area {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+        }
+        
+        .log-time {
+            color: #858585;
+        }
+        
+        .log-info {
+            color: #4ec9b0;
+        }
+        
+        .log-error {
+            color: #f48771;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI小说生成器</h1>
+        
+        <div class="dashboard">
+            <div class="card">
+                <h3>项目信息</h3>
+                <p id="project-info">未创建项目</p>
+            </div>
+            <div class="card">
+                <h3>生成进度</h3>
+                <p id="generation-progress">等待开始</p>
+            </div>
+            <div class="card">
+                <h3>质量评分</h3>
+                <p id="quality-score">--</p>
+            </div>
+            <div class="card">
+                <h3>系统状态</h3>
+                <p id="system-status">就绪</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>小说标题</label>
+            <input type="text" id="novel-title" placeholder="输入小说标题">
+        </div>
+        
+        <div class="form-group">
+            <label>小说类型</label>
+            <select id="novel-genre">
+                <option value="玄幻">玄幻</option>
+                <option value="仙侠">仙侠</option>
+                <option value="都市">都市</option>
+                <option value="科幻">科幻</option>
+                <option value="历史">历史</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>章节数</label>
+            <input type="number" id="num-chapters" value="100" min="1">
+        </div>
+        
+        <div class="form-group">
+            <label>每章字数</label>
+            <input type="number" id="word-number" value="3000" min="1000">
+        </div>
+        
+        <div class="form-group">
+            <label>故事主题</label>
+            <textarea id="topic" rows="3" placeholder="描述故事主题和核心设定"></textarea>
+        </div>
+        
+        <button onclick="createNovel()">创建项目</button>
+        <button onclick="startGeneration()" id="start-btn" disabled>开始生成</button>
+        
+        <div class="progress" id="progress-section" style="display: none;">
+            <h3>生成进度</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <p id="progress-text">0%</p>
+        </div>
+        
+        <div class="form-group">
+            <label>运行日志</label>
+            <div class="log-area" id="log-area"></div>
+        </div>
+    </div>
+    
+    <script>
+        let novelId = null;
+        let ws = null;
+        
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('log-area');
+            const time = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-${type}">${message}</span>`;
+            logArea.appendChild(entry);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+        
+        async function createNovel() {
+            const title = document.getElementById('novel-title').value;
+            const genre = document.getElementById('novel-genre').value;
+            const numChapters = parseInt(document.getElementById('num-chapters').value);
+            const wordNumber = parseInt(document.getElementById('word-number').value);
+            const topic = document.getElementById('topic').value;
+            
+            if (!title || !topic) {
+                alert('请填写小说标题和故事主题');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/novels/create', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        title: title,
+                        genre: genre,
+                        num_chapters: numChapters,
+                        word_number: wordNumber,
+                        topic: topic
+                    })
+                });
+                
+                const data = await response.json();
+                novelId = data.novel_id;
+                
+                document.getElementById('project-info').textContent = `${title} (${genre})`;
+                document.getElementById('start-btn').disabled = false;
+                
+                log('项目创建成功: ' + novelId);
+                
+                connectWebSocket(novelId);
+                
+            } catch (error) {
+                log('创建项目失败: ' + error.message, 'error');
+            }
+        }
+        
+        function connectWebSocket(novelId) {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws/${novelId}`);
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleWebSocketMessage(data);
+            };
+            
+            ws.onopen = () => {
+                log('WebSocket连接成功');
+            };
+            
+            ws.onerror = (error) => {
+                log('WebSocket错误', 'error');
+            };
+        }
+        
+        function handleWebSocketMessage(data) {
+            switch(data.type) {
+                case 'progress':
+                    updateProgress(data);
+                    break;
+                case 'task_complete':
+                    log('生成任务完成');
+                    document.getElementById('start-btn').disabled = false;
+                    break;
+                case 'task_error':
+                    log('生成任务失败: ' + data.error, 'error');
+                    document.getElementById('start-btn').disabled = false;
+                    break;
+            }
+        }
+        
+        function updateProgress(data) {
+            const percentage = data.percentage.toFixed(1);
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = 
+                `第${data.current}章 / 共${data.total}章 (${percentage}%)`;
+            document.getElementById('generation-progress').textContent = 
+                `正在生成第${data.current}章`;
+        }
+        
+        async function startGeneration() {
+            if (!novelId) {
+                alert('请先创建项目');
+                return;
+            }
+            
+            const startChapter = 1;
+            const endChapter = parseInt(document.getElementById('num-chapters').value);
+            
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('progress-section').style.display = 'block';
+            
+            try {
+                const response = await fetch(`/api/novels/${novelId}/generate`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        novel_id: novelId,
+                        start_chapter: startChapter,
+                        end_chapter: endChapter,
+                        auto_mode: false
+                    })
+                });
+                
+                const data = await response.json();
+                log('生成任务已启动: ' + data.task_id);
+                
+            } catch (error) {
+                log('启动生成失败: ' + error.message, 'error');
+                document.getElementById('start-btn').disabled = false;
+            }
+        }
+        
+        log('系统初始化完成');
+    </script>
+</body>
+</html>
